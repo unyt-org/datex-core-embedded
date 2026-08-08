@@ -83,7 +83,8 @@ pub fn main(attr: TokenStream, item: TokenStream) -> TokenStream {
                 let sw_int = esp_hal::interrupt::software::SoftwareInterruptControl::new(peripherals.SW_INTERRUPT);
                 datex_embedded::esp_rtos::start(timg0.timer0, sw_int.software_interrupt0);
             }),
-            init: Some(runtime_setup_quoted),
+            init_scoped: None,
+            init_unscoped: Some(runtime_setup_quoted),
             pre_body: Some(context_init_code),
             additional_attributes: vec![
                 parse_quote! {#[datex_embedded::esp_rtos::main]},
